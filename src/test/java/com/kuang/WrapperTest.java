@@ -4,11 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.kuang.mapper.IndexTestMapper;
 import com.kuang.mapper.UserMapper;
-import com.kuang.pojo.IndexTest;
 import com.kuang.pojo.User;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,27 +14,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @SpringBootTest
 public class WrapperTest {
 
     @Autowired
     private UserMapper userMapper;
-
-    @Resource
-    private IndexTestMapper indexTestMapper;
-
-    @Test
-    void contextLoads() {
-        // 查询name不为空的用户，并且邮箱不为空的用户，年龄大于等于12
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper
-                .isNotNull("name")
-                .isNotNull("email")
-                .ge("age", 12);
-        userMapper.selectList(wrapper).forEach(System.out::println); // 和我们刚才学习的map对比一下
-    }
 
     @Test
     void test1() {
@@ -117,13 +99,7 @@ public class WrapperTest {
         System.out.println(userMapper.update(user, queryWrapper));
     }
 
-    @Test
-    void test8() {
-        for (int i = 0; i < 4000000; i++) {
-            IndexTest indexTest = new IndexTest(RandomUtils.nextInt(), String.valueOf(RandomUtils.nextLong()), String.valueOf(RandomUtils.nextInt()));
-            System.out.println(indexTestMapper.insert(indexTest));
-        }
-    }
+
 
     @Test
     void test9() {
@@ -134,8 +110,15 @@ public class WrapperTest {
 
     @Test
     void test10() {
-        LambdaQueryWrapper<User> select = Wrappers.lambdaQuery(User.class).in(User::getId, 1, 2, 3, 4, 5, 6).select(User::getName);
+        LambdaQueryWrapper<User> select = Wrappers.lambdaQuery(User.class).in(User::getId, 1, 2, 3).select(User::getName);
         System.out.println(userMapper.selectList(select));
     }
 
+
+    @Test
+    void test11() {
+        User user = userMapper.selectOne(Wrappers.lambdaQuery(User.class).eq(User::getId, 1));
+        user.setName("test");
+        userMapper.updateById(user);
+    }
 }

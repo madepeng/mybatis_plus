@@ -22,14 +22,13 @@ public class CodeGenerator {
 
 
     public static void main(String[] args) {
-        String projectPath = "/Users/madepeng/hongen/code/study/mybatis_plus";
 
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
 
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        gc.setOutputDir("/Users/madepeng/hongen/code/study/mybatis_plus/src/main/java");
+        gc.setOutputDir("/Users/madepeng/GitHub/mybatis_plus/src/main/java");
         gc.setAuthor("madepeng");
         gc.setOpen(false);
         gc.setSwagger2(true);
@@ -43,7 +42,7 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/parent_circle?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://localhost:3306/ihuman_jump?useUnicode=true&useSSL=false&characterEncoding=utf8");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
@@ -53,7 +52,7 @@ public class CodeGenerator {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent("com.ihuman");
-        pc.setModuleName("parentcircle");
+        pc.setModuleName("jump");
         pc.setEntity("entity");
         pc.setMapper("mapper");
         pc.setService("service");
@@ -96,8 +95,8 @@ public class CodeGenerator {
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
-        // 写于父类中的公共字段
-        strategy.setInclude("grow_guidance_copywriting_rule", "grow_guidance_copywriting_content");
+        //strategy.setInclude("grow_guidance_copywriting_rule", "grow_guidance_copywriting_content");
+        strategy.setInclude("activity");
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setEntityTableFieldAnnotationEnable(true);
 //        strategy.setTablePrefix(pc.getModuleName() + "_");

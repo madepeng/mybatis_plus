@@ -4,14 +4,16 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.kuang.entity.User;
 import com.kuang.mapper.UserMapper;
-import com.kuang.pojo.User;
-import org.apache.commons.lang3.RandomUtils;
+import com.kuang.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +22,9 @@ public class WrapperTest {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Resource
+    private UserService userService;
 
     @Test
     void test1() {
@@ -100,7 +105,6 @@ public class WrapperTest {
     }
 
 
-
     @Test
     void test9() {
         LambdaUpdateWrapper<User> change = Wrappers.lambdaUpdate(User.class).set(User::getName, "change").in(User::getId, 1, 2, 3, 4, 5, 6);
@@ -118,7 +122,19 @@ public class WrapperTest {
     @Test
     void test11() {
         User user = userMapper.selectOne(Wrappers.lambdaQuery(User.class).eq(User::getId, 1));
-        user.setName("test");
-        userMapper.updateById(user);
+        user.setName("gggg");
+        //user.setId(2L);
+        //userMapper.updateById(user);
+
+        userMapper.update(user, Wrappers.lambdaUpdate(User.class).eq(User::getId, 2L));
+    }
+
+    @Test
+    void testbatch() {
+        List<User> userList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            userList.add(new User(Long.valueOf(i), i + "", i, i + "", LocalDateTime.now(), LocalDateTime.now()));
+        }
+        userService.saveBatch(userList);
     }
 }

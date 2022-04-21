@@ -42,7 +42,7 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/ihuman_jump?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://localhost:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
@@ -51,8 +51,8 @@ public class CodeGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent("com.ihuman");
-        pc.setModuleName("jump");
+        pc.setParent("com.kuang");
+        //pc.setModuleName("jump");
         pc.setEntity("entity");
         pc.setMapper("mapper");
         pc.setService("service");
@@ -96,7 +96,7 @@ public class CodeGenerator {
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
         //strategy.setInclude("grow_guidance_copywriting_rule", "grow_guidance_copywriting_content");
-        strategy.setInclude("activity");
+        strategy.setInclude("user");
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setEntityTableFieldAnnotationEnable(true);
 //        strategy.setTablePrefix(pc.getModuleName() + "_");

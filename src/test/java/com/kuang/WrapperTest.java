@@ -131,10 +131,21 @@ public class WrapperTest {
 
     @Test
     void testbatch() {
+        long start = System.currentTimeMillis();
         List<User> userList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100000; i++) {
             userList.add(new User(Long.valueOf(i), i + "", i, i + "", LocalDateTime.now(), LocalDateTime.now()));
         }
         userService.saveBatch(userList);
+        System.out.println("cost:" + (System.currentTimeMillis() - start));
+    }
+
+    @Test
+    void testbatch1() {
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 100000; i++) {
+            userService.save(new User(Long.valueOf(i), i + "", i, i + "", LocalDateTime.now(), LocalDateTime.now()));
+        }
+        System.out.println("cost:" + (System.currentTimeMillis() - start));
     }
 }

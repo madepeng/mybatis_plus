@@ -121,12 +121,15 @@ public class WrapperTest {
 
     @Test
     void test11() {
-        User user = userMapper.selectOne(Wrappers.lambdaQuery(User.class).eq(User::getId, 1));
-        user.setName("gggg");
+        User user = userMapper.selectOne(Wrappers.lambdaQuery(User.class).eq(User::getId, 100019));
+        user.setName("ooooooo");
         //user.setId(2L);
-        //userMapper.updateById(user);
-
-        userMapper.update(user, Wrappers.lambdaUpdate(User.class).eq(User::getId, 2L));
+        userMapper.updateById(user);
+        //userMapper.update(user, null);
+        //userMapper.update(user, Wrappers.lambdaUpdate(User.class).eq(User::getId, 100018));
+       /* userMapper.update(null, Wrappers.lambdaUpdate(User.class)
+                .set(User::getName, "fdsfsdfdsfsd").eq(User::getId, 100017));
+*/
     }
 
     @Test
